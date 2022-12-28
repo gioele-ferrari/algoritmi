@@ -232,7 +232,7 @@ int inserisci_testa(int A[], int n, int x) {
  * @param A vettore in cui effettuare l'inserzione.
  * @param n la dimensione del vettore.
  * @param x numero da inserire.
- * @param x indice del numero x.
+ * @param k indice del numero x.
  * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
  * @attention inserire invariante.
  * @return 1 se è andato tutto a buon fine, altrimenti 0.
@@ -252,6 +252,37 @@ int inserisci_posizione(int A[], int n, int x, int k) {
         }
         A[k] = x;
         inserito = 1;
+    }
+    return inserito;
+}
+
+/**
+ * @param A vettore in cui effettuare l'inserzione.
+ * @param n la dimensione del vettore.
+ * @param x occorrenza da trovare.
+ * @param newx nuovo numero da inserire.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
+ * @attention inserire invariante.
+ * @return 1 se è andato tutto a buon fine, altrimenti 0.
+*/
+int inserisci_occorrenza(int A[], int n, int x, int k) {
+    int i = 0, j = 0,inserito = 0, trovato = 0;
+    while ((A[i] != -1) && (!trovato)) {
+        if(A[i] == x) {
+            trovato = 1;
+        } else {
+            i++;
+        }
+    }
+
+    if(trovato) {
+        while (A[j] != -1) {
+            j++;
+        }
+        for(int l = j; l >= j; j--) {
+            A[l] = k;
+            inserito = l;
+        }
     }
     return inserito;
 }
