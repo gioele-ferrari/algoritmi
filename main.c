@@ -1,16 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#define VET_TAPPO 8
-
-void load_vettore(int A[], int n);
-void stampa_vettore(int A[], int n);
-void stampa_maggiore(int A[], int n, int x);
-int count_maggiore(int A[], int n, int x);
-int find(int A[], int n, int x);
-int find_index(int A[], int n, int x, int k);
-void add_condizione(int A[], int n, int x, int y);
-int inserisci_coda(int A[], int n, int x);
+#include "header.h"
 
 int main(int argc, char const *argv[])
 {
@@ -23,7 +11,7 @@ int main(int argc, char const *argv[])
      * elementi oltre al delimitatore saranno ignorati.
     */
     int A[VET_TAPPO] = {1, 2, 3, 3, 5, 6, -1};
-    int new_index = inserisci_coda(A, VET_TAPPO, 7);
+    int new_index = inserisci_posizione(A, VET_TAPPO, 10, 4);
     printf("Nuovo indice: %d\n", new_index);
     stampa_vettore(A, VET_TAPPO);
     return 0;
@@ -70,7 +58,7 @@ void stampa_vettore(int A[], int n) {
     printf("Stampa degli elementi in un vettore a tappo.\n");
     
     while ((A[i] != -1)) {
-        printf("[%d]: %d\n", i+1, A[i]);
+        printf("[%d]: %d\n", i, A[i]);
         i++;
     }
 }
@@ -193,7 +181,7 @@ void add_condizione(int A[], int n, int x, int y) {
 }
 
 /**
- * @param A vettore in cui effettuare la ricerca.
+ * @param A vettore in cui effettuare l'inserzione.
  * @param n la dimensione del vettore.
  * @param x numero da inserire.
  * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
@@ -214,5 +202,57 @@ int inserisci_coda(int A[], int n, int x) {
         i = -1;
     }
     return i; 
+}
+
+/**
+ * @param A vettore in cui effettuare l'inserzione.
+ * @param n la dimensione del vettore.
+ * @param x numero da inserire.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
+ * @attention inserire invariante.
+ * @return 1 se è andato tutto a buon fine, altrimenti 0.
+*/
+int inserisci_testa(int A[], int n, int x) {
+    int i = 0, inserito = 0;
+    while (A[i] != -1) {
+        i++;
+    }
+
+    if(i < n - 1) {
+        for(int j = i; j > 0; j--) {
+            A[j + 1] = A[j];
+        }
+        A[0] = x;
+        inserito = 1;
+    }
+    return inserito;
+}
+
+/**
+ * @param A vettore in cui effettuare l'inserzione.
+ * @param n la dimensione del vettore.
+ * @param x numero da inserire.
+ * @param x indice del numero x.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
+ * @attention inserire invariante.
+ * @return 1 se è andato tutto a buon fine, altrimenti 0.
+*/
+int inserisci_posizione(int A[], int n, int x, int k) {
+    int i = 0, inserito = 0;
+    while (A[i] != -1) {
+        i++;
+    }
+
+    if(k < 0 || k > n || i == n - 1 || k >= i + 1) {
+        printf("Impossibile inserire elemento in posizione %d", k);
+    }
+    else {
+        for (int j = i; j >= k; j--) {
+            A[j + 1] = A[j]; 
+        }
+        A[k] = x;
+        inserito = 1;
+    }
+    return inserito;
 }
 
