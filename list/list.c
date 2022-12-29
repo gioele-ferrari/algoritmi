@@ -1,4 +1,4 @@
-#include "header.h"
+#include "list.h"
 
 int main(int argc, char const *argv[])
 {
@@ -417,7 +417,7 @@ void elimina_occorrenza(int A[], int n, int x)
 */
 void elimina_occorrenza_all(int A[], int n, int x) 
 {
-    int i = 0, j = 0, len = 0, trovato = 0;
+    int i = 0, j = 0, len = 0;
     len = get_length(A, n);
     while (A[i] != -1) 
     {
