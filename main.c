@@ -11,10 +11,23 @@ int main(int argc, char const *argv[])
      * elementi oltre al delimitatore saranno ignorati.
     */
     int A[VET_TAPPO] = {1, 2, 3, 3, 5, 6, -1};
-    int new_index = inserisci_posizione(A, VET_TAPPO, 10, 4);
-    printf("Nuovo indice: %d\n", new_index);
+    elimina_occorrenza_all(A, VET_TAPPO, 5);
     stampa_vettore(A, VET_TAPPO);
     return 0;
+}
+
+/**
+ * @param A vettore da cui ricavare la lunghezza
+ * @param n la dimensione del vettore
+ * L'algoritmo ha un complessità di O(m) dove m è la dimensione del vettore
+ * @return la lunghezza del vettore senza -1
+*/
+int get_length(int A[], int n) {
+    int i = 0;
+    while(A[i] != -1) {
+        i++;
+    }
+    return i;
 }
 
 /**
@@ -190,9 +203,7 @@ void add_condizione(int A[], int n, int x, int y) {
 */
 int inserisci_coda(int A[], int n, int x) {
     int i = 0;
-    while (A[i] != -1) {
-        i++;
-    }
+    i = get_length(A, n);
     
     if(i < n - 1) {
         A[i] = x;
@@ -214,9 +225,7 @@ int inserisci_coda(int A[], int n, int x) {
 */
 int inserisci_testa(int A[], int n, int x) {
     int i = 0, inserito = 0;
-    while (A[i] != -1) {
-        i++;
-    }
+    i = get_length(A, n);
 
     if(i < n - 1) {
         for(int j = i; j > 0; j--) {
@@ -239,9 +248,7 @@ int inserisci_testa(int A[], int n, int x) {
 */
 int inserisci_posizione(int A[], int n, int x, int k) {
     int i = 0, inserito = 0;
-    while (A[i] != -1) {
-        i++;
-    }
+    i = get_length(A, n);
 
     if(k < 0 || k > n || i == n - 1 || k >= i + 1) {
         printf("Impossibile inserire elemento in posizione %d", k);
@@ -267,23 +274,99 @@ int inserisci_posizione(int A[], int n, int x, int k) {
 */
 int inserisci_occorrenza(int A[], int n, int x, int k) {
     int i = 0, j = 0,inserito = 0, trovato = 0;
-    while ((A[i] != -1) && (!trovato)) {
-        if(A[i] == x) {
-            trovato = 1;
-        } else {
-            i++;
-        }
+    if(A[0] == -1) {
+        printf("Impossibile inserire elementi, vettore vuoto!\n");
     }
-
-    if(trovato) {
-        while (A[j] != -1) {
-            j++;
+    else {
+        while ((A[i] != -1) && (!trovato)) {
+            if(A[i] == x) {
+                trovato = 1;
+            } else {
+                i++;
+            }
         }
-        for(int l = j; l >= j; j--) {
-            A[l] = k;
-            inserito = l;
+
+        if(trovato) {    
+            j = get_length(A, n);
+            for(int l = j; l >= i; l--) {
+                A[l + 1] = A[l];
+            }
+            A[i] = k;
+            inserito = i;
         }
     }
     return inserito;
 }
 
+/**
+ * @param A vettore in cui effettuare l'eliminazione.
+ * @param n la dimensione del vettore.
+ * @param k posizione da eliminare.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
+ * @attention inserire invariante.
+ * @return 1 se è andato tutto a buon fine, altrimenti 0.
+*/
+int elimina_posizione(int A[], int n, int k) {
+    int i = 0, j = 0, eliminato = 0;
+    if(k < 0 || k > (n - 1)) {
+        printf("Posizione non valida, riprovare!\n");
+    }
+    else {
+        i = get_length(A, n);
+        for(j = k + 1; j <= i; j++) {
+            A[j - 1] = A[j];
+        }
+        eliminato = k;
+    }
+    return eliminato;
+}
+
+/**
+ * @param A vettore in cui effettuare l'eliminazione.
+ * @param n la dimensione del vettore.
+ * @param x occorrenza da eliminare.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
+ * @attention inserire invariante.
+ * @return nessun return.
+*/
+void elimina_occorrenza(int A[], int n, int x) {
+    int i = 0, j = 0, len = 0, trovato = 0;
+
+    while ((A[i] != -1) && (!trovato)) {
+        if(A[i] == x) {
+            trovato = 1;
+        }
+        else {
+            i++;
+        }
+    }
+    len = get_length(A, n);
+    for(j = i + 1; j <= len; j++) {
+        A[j - 1] = A[j];
+    } 
+}
+
+/**
+ * @param A vettore in cui effettuare l'eliminazione.
+ * @param n la dimensione del vettore.
+ * @param x occorrenza da eliminare.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi.
+ * @attention inserire invariante.
+ * @return nessun return.
+*/
+void elimina_occorrenza_all(int A[], int n, int x) {
+    int i = 0, j = 0, len = 0, trovato = 0;
+    len = get_length(A, n);
+    while (A[i] != -1) {
+        if(A[i] == x) {
+            for(j = i + 1; j <= len; j++) {
+                A[j - 1] = A[j];
+            }
+            len--;
+        }
+        else {
+            i++;
+        }
+    }
+    
+}
