@@ -22,7 +22,8 @@ int main(int argc, char const *argv[])
  * L'algoritmo ha un complessità di O(m) dove m è la dimensione del vettore
  * @return la lunghezza del vettore senza -1
 */
-int get_length(int A[], int n) {
+int get_length(int A[], int n) 
+{
     int i = 0;
     while(A[i] != -1) {
         i++;
@@ -37,23 +38,27 @@ int get_length(int A[], int n) {
  * mentre l'invariante è la posizione del vettore da 0 a A[i] (esclusa).
  * @return nessun return.
 */
-void load_vettore(int A[], int n) {
+void inserisci_vettore(int A[], int n) 
+{
     int i = 0, num;
     printf("Inserimento di elementi in un vettore a tappo.\n");
     printf("[%d]: ", i+1);
     scanf("%d", &num);
     A[i] = num;
 
-    while((A[i] != -1) && (i < n - 1)) {
+    while((A[i] != -1) && (i < n - 1)) 
+    {
         i++;
         printf("[%d]: ", i+1);
         scanf("%d", &num);
         A[i] = num;
     }
 
-    if(A[i] != -1) {
+    if(A[i] != -1) 
+    {
         printf("Errore, l'ultimo elemento è diverso da -1.\n");
-    } else {
+    } else 
+    {
         printf("Inserimento avvenuto con successo.\n");
     }
 }
@@ -66,11 +71,13 @@ void load_vettore(int A[], int n) {
  * essere di meno) mentre l'invariante è la posizione del vettore da 0 a A[i] (esclusa).
  * @return nessun return.
 */
-void stampa_vettore(int A[], int n) {
+void stampa_vettore(int A[], int n) 
+{
     int i = 0;
     printf("Stampa degli elementi in un vettore a tappo.\n");
     
-    while ((A[i] != -1)) {
+    while ((A[i] != -1)) 
+    {
         printf("[%d]: %d\n", i, A[i]);
         i++;
     }
@@ -85,12 +92,14 @@ void stampa_vettore(int A[], int n) {
  * che sono più grandi di x.
  * @return nessun return.
 */
-void stampa_maggiore(int A[], int n, int x) {
+void stampa_maggiore(int A[], int n, int x) 
+{
     int i = 0;
     
     printf("Stampa degli elementi in un vettore a tappo maggiori di: %d.\n", x);
     
-    while ((A[i] != -1)) {
+    while ((A[i] != -1)) 
+    {
         if(A[i] > x) {
             printf("[%d]: %d\n", i+1, A[i]);
         }
@@ -107,13 +116,16 @@ void stampa_maggiore(int A[], int n, int x) {
  * più grandi fino alla posizione i - 1.
  * @return numero degli elementi maggiori di x.
 */
-int count_maggiore(int A[], int n, int x) {
+int conta_maggiore(int A[], int n, int x) 
+{
     int i = 0, count = 0;
     
     printf("Conta degli elementi in un vettore a tappo maggiori di: %d.\n", x);
     
-    while ((A[i] != -1)) {
-        if(A[i] > x) {
+    while ((A[i] != -1)) 
+    {
+        if(A[i] > x) 
+        {
             count++;
         }
         i++;
@@ -129,21 +141,27 @@ int count_maggiore(int A[], int n, int x) {
  * mentre l'invariante è il vettore da 0 a A[i] (escluso).
  * @return l'indice del numero trovato, -1 se non è presente.
 */
-int find(int A[], int n, int x) {
+int find(int A[], int n, int x) 
+{
     int i = 0, trovato = 0;
-    while ((A[i] != -1) && (trovato == 0)) {
-        if(A[i] == x) {
+    while ((A[i] != -1) && (trovato == 0)) 
+    {
+        if(A[i] == x) 
+        {
             trovato = 1;
         } 
-        else {
+        else 
+        {
             i++;
         }
     }
      
-    if(trovato == 1) {
+    if(trovato == 1) 
+    {
         return i;
     }
-    else {
+    else 
+    {
         return -1;
     }
 }
@@ -158,12 +176,16 @@ int find(int A[], int n, int x) {
  * da posizione O a i - 1.
  * @return l'indice del numero trovato, -1 se non è presente.
 */
-int find_index(int A[], int n, int x, int k) {
+int find_index(int A[], int n, int x, int k) 
+{
     int i = 0, trovato = 0, count = 0;
-    while ((A[i] != -1) && (trovato == 0) && (i != -1)) {
+    while ((A[i] != -1) && (trovato == 0) && (i != -1)) 
+    {
         i = find(A, n, x);
-        if(i != -1) {
-            if(count == k) {
+        if(i != -1) 
+        {
+            if(count == k) 
+            {
                 trovato = 1;
             }
             count++;
@@ -183,10 +205,13 @@ int find_index(int A[], int n, int x, int k) {
  * A[i] (escluso) maggiori di y sommati a x.
  * @return nessun return.
 */
-void add_condizione(int A[], int n, int x, int y) {
+void aggiungi_condizione(int A[], int n, int x, int y) 
+{
     int i = 0;
-    while (A[i] != -1) {
-        if(A[i] > y) {
+    while (A[i] != -1) 
+    {
+        if(A[i] > y) 
+        {
             A[i] += x;
         }
         i++;
@@ -201,15 +226,18 @@ void add_condizione(int A[], int n, int x, int y) {
  * @attention inserire invariante.
  * @return l'indice del nuovo elemento, -1 se non si può inserire.
 */
-int inserisci_coda(int A[], int n, int x) {
+int inserisci_coda(int A[], int n, int x) 
+{
     int i = 0;
     i = get_length(A, n);
     
-    if(i < n - 1) {
+    if(i < n - 1) 
+    {
         A[i] = x;
         A[i + 1] = -1;
     }
-    else {
+    else 
+    {
         i = -1;
     }
     return i; 
@@ -223,12 +251,15 @@ int inserisci_coda(int A[], int n, int x) {
  * @attention inserire invariante.
  * @return 1 se è andato tutto a buon fine, altrimenti 0.
 */
-int inserisci_testa(int A[], int n, int x) {
+int inserisci_testa(int A[], int n, int x) 
+{
     int i = 0, inserito = 0;
     i = get_length(A, n);
 
-    if(i < n - 1) {
-        for(int j = i; j > 0; j--) {
+    if(i < n - 1) 
+    {
+        for(int j = i; j > 0; j--) 
+        {
             A[j + 1] = A[j];
         }
         A[0] = x;
@@ -246,15 +277,19 @@ int inserisci_testa(int A[], int n, int x) {
  * @attention inserire invariante.
  * @return 1 se è andato tutto a buon fine, altrimenti 0.
 */
-int inserisci_posizione(int A[], int n, int x, int k) {
+int inserisci_posizione(int A[], int n, int x, int k) 
+{
     int i = 0, inserito = 0;
     i = get_length(A, n);
 
-    if(k < 0 || k > n || i == n - 1 || k >= i + 1) {
+    if(k < 0 || k > n || i == n - 1 || k >= i + 1) 
+    {
         printf("Impossibile inserire elemento in posizione %d", k);
     }
-    else {
-        for (int j = i; j >= k; j--) {
+    else 
+    {
+        for (int j = i; j >= k; j--) 
+        {
             A[j + 1] = A[j]; 
         }
         A[k] = x;
@@ -272,23 +307,30 @@ int inserisci_posizione(int A[], int n, int x, int k) {
  * @attention inserire invariante.
  * @return 1 se è andato tutto a buon fine, altrimenti 0.
 */
-int inserisci_occorrenza(int A[], int n, int x, int k) {
+int inserisci_occorrenza(int A[], int n, int x, int k) 
+{
     int i = 0, j = 0,inserito = 0, trovato = 0;
-    if(A[0] == -1) {
+    if(A[0] == -1) 
+    {
         printf("Impossibile inserire elementi, vettore vuoto!\n");
     }
     else {
-        while ((A[i] != -1) && (!trovato)) {
-            if(A[i] == x) {
+        while ((A[i] != -1) && (!trovato)) 
+        {
+            if(A[i] == x) 
+            {
                 trovato = 1;
-            } else {
+            } else 
+            {
                 i++;
             }
         }
 
-        if(trovato) {    
+        if(trovato) 
+        {    
             j = get_length(A, n);
-            for(int l = j; l >= i; l--) {
+            for(int l = j; l >= i; l--) 
+            {
                 A[l + 1] = A[l];
             }
             A[i] = k;
@@ -306,14 +348,17 @@ int inserisci_occorrenza(int A[], int n, int x, int k) {
  * @attention inserire invariante.
  * @return 1 se è andato tutto a buon fine, altrimenti 0.
 */
-int elimina_posizione(int A[], int n, int k) {
+int elimina_posizione(int A[], int n, int k) 
+{
     int i = 0, j = 0, eliminato = 0;
-    if(k < 0 || k > (n - 1)) {
+    if(k < 0 || k > (n - 1)) 
+    {
         printf("Posizione non valida, riprovare!\n");
     }
     else {
         i = get_length(A, n);
-        for(j = k + 1; j <= i; j++) {
+        for(j = k + 1; j <= i; j++) 
+        {
             A[j - 1] = A[j];
         }
         eliminato = k;
@@ -329,19 +374,24 @@ int elimina_posizione(int A[], int n, int k) {
  * @attention inserire invariante.
  * @return nessun return.
 */
-void elimina_occorrenza(int A[], int n, int x) {
+void elimina_occorrenza(int A[], int n, int x) 
+{
     int i = 0, j = 0, len = 0, trovato = 0;
 
-    while ((A[i] != -1) && (!trovato)) {
-        if(A[i] == x) {
+    while ((A[i] != -1) && (!trovato)) 
+    {
+        if(A[i] == x) 
+        {
             trovato = 1;
         }
-        else {
+        else 
+        {
             i++;
         }
     }
     len = get_length(A, n);
-    for(j = i + 1; j <= len; j++) {
+    for(j = i + 1; j <= len; j++) 
+    {
         A[j - 1] = A[j];
     } 
 }
@@ -354,19 +404,69 @@ void elimina_occorrenza(int A[], int n, int x) {
  * @attention inserire invariante.
  * @return nessun return.
 */
-void elimina_occorrenza_all(int A[], int n, int x) {
+void elimina_occorrenza_all(int A[], int n, int x) 
+{
     int i = 0, j = 0, len = 0, trovato = 0;
     len = get_length(A, n);
-    while (A[i] != -1) {
-        if(A[i] == x) {
-            for(j = i + 1; j <= len; j++) {
+    while (A[i] != -1) 
+    {
+        if(A[i] == x) 
+        {
+            for(j = i + 1; j <= len; j++) 
+            {
                 A[j - 1] = A[j];
             }
             len--;
         }
-        else {
+        else 
+        {
             i++;
         }
     }
     
+}
+
+/**
+ * @param A vettore da duplicare.
+ * @param n la dimensione del vettore.
+ * @param B vettore risultato.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi
+ * mentre l'invariante è il vettore B con gli elementi copiati dalla 
+ * posizione 0 alla posizione i - 1.
+ * @return nessun return.
+*/
+void duplica_vettore(int A[], int n, int B[]) 
+{
+    int i = 0;
+    while (A[i] != -1) 
+    {
+        B[i] = A[i];
+        i++;
+    }
+    B[i] = -1;
+}
+
+/**
+ * @param A vettore da duplicare.
+ * @param n la dimensione del vettore.
+ * @param x numero per la condizione.
+ * @param B vettore risultato.
+ * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi
+ * mentre l'invariante è il vettore B con gli elementi copiati dalla 
+ * posizione 0 alla posizione i - 1 maggiori di x.
+ * @return nessun return.
+*/
+void duplica_vettore_x(int A[], int n, int x, int B[]) 
+{
+    int i = 0, j = 0;
+    while (A[i] != -1) 
+    {
+        if(A[i] > x)
+        {
+            B[j] = A[i];
+            j++;
+        }
+        i++;
+    }
+    B[j] = -1;
 }
