@@ -25,3 +25,6 @@ void elimina_occorrenza_all(int A[], int n, int x);
 
 void duplica_vettore(int A[], int n, int B[]);
 void duplica_vettore_x(int A[], int n, int x, int B[]);
+
+int vettori_equivalenti(int A[], int B[], int n);
+int vettori_maggiore(int A[], int B[], int n, int x);

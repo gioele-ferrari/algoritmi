@@ -10,8 +10,11 @@ int main(int argc, char const *argv[])
      * l'elemento all'estremo del vettore è -1. Nel caso ci fossero
      * elementi oltre al delimitatore saranno ignorati.
     */
-    int A[VET_TAPPO] = {1, 2, 3, 3, 5, 6, -1};
-    elimina_occorrenza_all(A, VET_TAPPO, 5);
+    int A[VET_TAPPO] = {1, 1, 1, 3, 5, 6, -1};
+    int B[VET_TAPPO] = {1, 2, 3, 3, 3, 6, -1};
+
+    int num = inserisci_coda(A, VET_TAPPO, 9);
+    printf("%d\n", num);
     stampa_vettore(A, VET_TAPPO);
     return 0;
 }
@@ -112,13 +115,13 @@ void stampa_maggiore(int A[], int n, int x)
  * @param n la dimensione del vettore.
  * @param x numero per la condizione.
  * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi
- * mentre l'invariante è la variabile count che tiene traccia degli elementi
+ * mentre l'invariante è la variabile conta che tiene traccia degli elementi
  * più grandi fino alla posizione i - 1.
  * @return numero degli elementi maggiori di x.
 */
 int conta_maggiore(int A[], int n, int x) 
 {
-    int i = 0, count = 0;
+    int i = 0, conta = 0;
     
     printf("Conta degli elementi in un vettore a tappo maggiori di: %d.\n", x);
     
@@ -126,11 +129,11 @@ int conta_maggiore(int A[], int n, int x)
     {
         if(A[i] > x) 
         {
-            count++;
+            conta++;
         }
         i++;
     }
-    return count;
+    return conta;
 }
 
 /**
@@ -172,26 +175,34 @@ int find(int A[], int n, int x)
  * @param x numero da ricercare.
  * @param k numero occorrenza da ricercare.
  * L'algoritmo ha un complessità di O(m) dove m è il numero di elementi
- * mentre l'invariante è count che tiene traccia delle occorrenze tra A e x
+ * mentre l'invariante è conta che tiene traccia delle occorrenze tra A e x
  * da posizione O a i - 1.
  * @return l'indice del numero trovato, -1 se non è presente.
 */
 int find_index(int A[], int n, int x, int k) 
 {
-    int i = 0, trovato = 0, count = 0;
-    while ((A[i] != -1) && (trovato == 0) && (i != -1)) 
+    int i = 0, trovato = 0, occorrenza = 0;
+    while ((A[i] != -1) && (trovato == 0) && (find(A, n, x) != -1)) 
     {
-        i = find(A, n, x);
-        if(i != -1) 
+        if(find(A, n, x) != -1) 
         {
-            if(count == k) 
+            if(A[i] == x && occorrenza == k - 1)
             {
                 trovato = 1;
             }
-            count++;
-            i++;
+            else {
+                if(A[i] == x && occorrenza < k) {
+                    occorrenza++;
+                }
+                i++;
+            }
         }
     }
+
+    if(find(A, n, x) == -1) {
+        i = -1;
+    }
+
     return i;
 }
 
@@ -470,3 +481,71 @@ void duplica_vettore_x(int A[], int n, int x, int B[])
     }
     B[j] = -1;
 }
+
+/**
+ * @param A vettore da controllare.
+ * @param B vettore da controllare.
+ * @param n la dimensione del vettore.
+ * L'algoritmo ha un complessità di O(min(A, B)) dove m è il numero di elementi minimo
+ * tra i due vettori nel caso peggiore si arriva alla dimensione massima
+ * @attention inserire invariante.
+ * @return 0 se sono diversi, 1 se sono uguali.
+*/
+int vettori_equivalenti(int A[], int B[], int n) 
+{
+    int i = 0, uguali = 1;
+    while (A[i] != -1 && B[i] != -1 && uguali)
+    {
+        if(A[i] != B[i]) 
+        {
+            uguali = 0;
+        }
+        i++;
+    }
+    return uguali;
+}
+
+/**
+ * @param A vettore da controllare.
+ * @param B vettore da controllare.
+ * @param n la dimensione del vettore.
+ * @param x numero nel caso finiscano gli elementi di confronto.
+ * L'algoritmo ha un complessità di O(max(A, B)) dove m è il numero di elementi minimo
+ * tra i due vettori nel caso peggiore si arriva alla dimensione massima
+ * @attention inserire invariante.
+ * @return 0 se sono diversi, 1 se sono uguali.
+*/
+int vettori_maggiore(int A[], int B[], int n, int x) 
+{
+    int i = 0, j = 0, conta = 0;
+    while (A[i] != -1 && B[j] != -1)
+    {
+        if(A[i] > B[j]) 
+        {
+            conta++;
+        }
+        i++;
+        j++;
+    }
+
+    while (A[i] != -1) 
+    {
+        if(A[i] > x) 
+        {
+            conta++;
+        }
+        i++;
+    }
+    
+    while (B[j] != -1) 
+    {
+        if(x > B[j]) 
+        {
+            conta++;
+        }
+        j++;
+    }
+    return conta;
+}
+
+
