@@ -6,8 +6,9 @@ l'esame di programmazione 1 presso l'**Università dal Piemonte Orientale** (AL)
 I contenuti del programma prevedono:
 
 - Vettori a tappo. (nella directory **list**).
-- Algoritmi di ordinamento. (nella directory **sort**).
-- Matrici con vettori a tappo. (*w.i.p.*)
+- Algoritmi di ordinamento. (*w.i.p*).
+- Matrici con vettori a tappo. (nella directory **matrix**).
+- Utilizzo degli assert. (nella directory **assert**).
 
 ---
 
